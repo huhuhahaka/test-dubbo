@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: provider
+
+server:
+  port: 8090
+
+dubbo:
+  application:
+    name: dubbo-provider
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+  protocol:
+    name: dubbo
+    port: 20880
+  monitor:
+    protocol: registry
+
+

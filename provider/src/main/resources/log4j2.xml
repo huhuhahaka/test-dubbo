@@ -4,7 +4,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%-5level %d{HH:mm:ss.SSS} [%t] (%F:%L) - %msg%n"/>
         </Console>
-        <RollingFile name="RollingFile" fileName="/opt/logs/com/example/consumer.log" filePattern="/opt/logs/com/example/$${date:yyyy-MM}/consumer-%d{yyyy-MM-dd}.log">
+        <RollingFile name="RollingFile" fileName="/opt/logs/com/example/provider.log" filePattern="/opt/logs/com/example/$${date:yyyy-MM}/provider-%d{yyyy-MM-dd}.log">
             <PatternLayout charset="UTF-8" pattern="%-5level %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] (%F:%L) - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy />
@@ -13,10 +13,10 @@
     </Appenders>
     <Loggers>
         <Logger name="com.example" level="INFO" />
-        <Logger name="com.example.consumer.ConsumerApplication" level="INFO" additivity="true">
+        <Logger name="com.example.provider.ProviderApplication" level="INFO" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Root level="info">
+        <Root level="DEBUG">
             <AppenderRef ref="RollingFile"/>
             <AppenderRef ref="Console"/>
         </Root>

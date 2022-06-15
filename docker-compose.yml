@@ -1,0 +1,20 @@
+version:  "3.9"
+services:
+  provider:
+    build: ./provider
+    container_name: provider
+    image: provider:1.0
+    restart: always
+    ports:
+      - "8090:8090"
+    volumes:
+      - /opt/logs/com/example:/opt/logs/com/example
+  consumer:
+    build: ./consumer
+    container_name: consumer
+    image: consumer:1.0
+    restart: always
+    ports:
+      - "8091:8091"
+    volumes:
+      - /opt/logs/com/example:/opt/logs/com/example

@@ -48,3 +48,7 @@ dubbo:
 logging:
   config: classpath:log4j2.xml
 
+springdoc:
+  swagger-ui:
+    path: /api.html
+    url: /doc/openapi.json

@@ -1,6 +1,7 @@
 package com.example.consumer.controller;
 
 import com.example.api.service.HelloService;
+import com.example.consumer.common.Response;
 import com.example.consumer.entry.User;
 import com.example.consumer.event.SendEvent;
 import com.example.consumer.repository.EsUserRepository;
@@ -39,34 +40,51 @@ public class UserController {
     private EsUserRepository esUserRepository;
 
 
+    /**
+     * Dubbo RPC 调用 返回 hello 字符串
+     * @return
+     */
     @GetMapping("/hello")
-    public String hello() {
+    public Response<String> hello() {
         String topic = "hello";
 
         logger.info("这是要入 ES 日志，内容为：{}", msg);
         kafkaTemplate.send(topic, msg);
 
         publisher.publishEvent(new SendEvent("this.getClass()", msg));
-        return helloService.say();
+        return Response.success(helloService.say());
     }
 
+    /**
+     * 获取用户信息
+     * @param name 用户姓名
+     * @param info 用户信息
+     * @return
+     */
     @GetMapping("/getUser")
-    public List<User> getUser(String name, String info) {
+    public Response<List<User>> getUser(String name, String info) {
+
+        List<User> resultUserList = new ArrayList<>();
 
         if (name != null && info != null) {
-            return esUserRepository.findByNameAndInfo(name, info);
+            resultUserList = esUserRepository.findByNameAndInfo(name, info);
         } else if (name != null) {
-            return esUserRepository.findByName(name);
+            resultUserList = esUserRepository.findByName(name);
         } else if (info != null) {
-            return esUserRepository.findByInfo(info);
-        } else {
-            return new ArrayList<>();
+            resultUserList = esUserRepository.findByInfo(info);
         }
+
+        return Response.success(resultUserList);
     }
 
+    /**
+     * 保存用户信息
+     * @param user
+     * @return
+     */
     @PostMapping("/saveUser")
-    public User saveUser(@Validated @RequestBody User user) {
-        return esUserRepository.save(user);
+    public Response<User> saveUser(@Validated @RequestBody User user) {
+        return Response.success(esUserRepository.save(user));
     }
 
 

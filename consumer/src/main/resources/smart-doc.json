@@ -1,0 +1,18 @@
+{
+  "serverUrl": "http://localhost:8091",
+  "allInOne": true,
+  "outPath": "src/main/resources/static/doc",
+  "createDebugPage": true,
+  "packageFilters": "com.example.consumer.controller.*",
+  "projectName": "consumer",
+  "allInOneDocFileName": "index.html",
+  "errorCodeDictionaries": [{
+    "title": "title",
+    "enumClassName": "com.example.consumer.common.ResponseCodeEnum",
+    "codeField": "code",
+    "descField": "description"
+  }],
+  "responseBodyAdvice":{
+    "className":"com.example.consumer.common.Response"
+  }
+}
